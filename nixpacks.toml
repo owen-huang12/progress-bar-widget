@@ -1,12 +1,8 @@
-[providers]
-# Explicitly disable Node.js provider and use only custom setup
-node = false
-
 [phases.setup]
 nixPkgs = ['maven', 'jdk17']
 
 [phases.build]
-cmds = ['cd backend && mvn clean package -DskipTests']
+cmds = ['mvn clean package -DskipTests']
 
 [start]
-cmd = 'cd backend && java -jar target/progress-bar-backend-0.0.1-SNAPSHOT.jar'
+cmd = 'java -jar target/progress-bar-backend-0.0.1-SNAPSHOT.jar'

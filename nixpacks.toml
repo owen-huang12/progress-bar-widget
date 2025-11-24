@@ -1,3 +1,7 @@
+[providers]
+# Explicitly disable Node.js provider and use only custom setup
+node = false
+
 [phases.setup]
 nixPkgs = ['maven', 'jdk17']
 

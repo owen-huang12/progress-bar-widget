@@ -3,10 +3,22 @@ import './App.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
 
+// Generate a random unique ID
+const generateUniqueId = () => {
+  return 'bar-' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36);
+};
+
 function App() {
   // Get the ID from URL parameters
   const urlParams = new URLSearchParams(window.location.search);
-  const barId = urlParams.get('id') || 'default';
+  let barId = urlParams.get('id');
+
+  // If no ID exists, generate one and redirect
+  if (!barId) {
+    barId = generateUniqueId();
+    window.location.replace(`${window.location.pathname}?id=${barId}`);
+    return <div className="App">Generating unique ID...</div>;
+  }
 
   const [percentage, setPercentage] = useState('');
   const [loading, setLoading] = useState(true);

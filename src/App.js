@@ -8,17 +8,28 @@ const generateUniqueId = () => {
   return 'bar-' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36);
 };
 
-function App() {
-  // Get the ID from URL parameters
+// Get or create a unique ID for this embed instance
+const getEmbedId = () => {
+  // First check URL parameter (for manual IDs)
   const urlParams = new URLSearchParams(window.location.search);
-  let barId = urlParams.get('id');
+  const urlId = urlParams.get('id');
+  if (urlId) return urlId;
 
-  // If no ID exists, generate one and redirect
-  if (!barId) {
-    barId = generateUniqueId();
-    window.location.replace(`${window.location.pathname}?id=${barId}`);
-    return <div className="App">Generating unique ID...</div>;
+  // Check localStorage for existing ID
+  const localStorageKey = 'progress-bar-embed-id';
+  let embedId = localStorage.getItem(localStorageKey);
+
+  // If no ID exists, generate one and save it
+  if (!embedId) {
+    embedId = generateUniqueId();
+    localStorage.setItem(localStorageKey, embedId);
   }
+
+  return embedId;
+};
+
+function App() {
+  const barId = getEmbedId();
 
   const [percentage, setPercentage] = useState('');
   const [loading, setLoading] = useState(true);

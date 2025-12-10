@@ -68,3 +68,32 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Backend Deployment
+
+### Deploying to Render
+
+The backend is a Spring Boot application that can be deployed to Render for free.
+
+#### Option 1: Using Blueprint (Recommended)
+
+1. Push your code to GitHub
+2. Log in to [Render](https://render.com)
+3. Click "New +" and select "Blueprint"
+4. Connect your GitHub repository
+5. Render will detect the `render.yaml` file
+6. Click "Apply" to deploy
+
+#### Option 2: Manual Web Service
+
+1. Push your code to GitHub
+2. Log in to [Render](https://render.com)
+3. Click "New +" and select "Web Service"
+4. Connect your GitHub repository
+5. Configure the service:
+   - **Root Directory**: `backend`
+   - **Runtime**: Docker
+   - **Dockerfile Path**: `./Dockerfile` (or leave as default)
+6. Click "Create Web Service"
+
+The backend includes a Dockerfile that will build and run the Spring Boot application on port 8080.
